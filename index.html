@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row my-4 mx-auto">
+            <div class="col-md-4">
+                <h1> List of users </h1>
+            </div>
+            <div class="col-md-8">
+                <h5>Chat discussion</h5>
+                <div class="row my-4 mx-auto">
+                    <ul id="chat" class="list-group"></ul>
+                </div>
+                <form onsubmit="return false" id="messageForm">
+                    <textarea class="textarea form-control" id="message" placeholder="e.g. Hello world"></textarea>
+                    <button type="submit" class="btn btn-primary mt-3 btn-lg" id="btnSend"><i class="fa fa-send"></i> Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        $(function() {
+            var socket = io.connect();
+            let form = $('#messageForm'), 
+                message = $('#message'),
+                chat = $('#chat');
+            form.submit((e) => {                
+                e.preventDefault();
+                socket.emit('send message', message.val());
+                message.val('');
+            });
+            socket.on('new message', (data) => {
+                chat.append('<li class="list-group-item d-flex justify-content-between align-items-center">'+data.msg+'</li>');
+            })
+        })
+    </script>
+</body>
+</html>

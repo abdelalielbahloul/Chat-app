@@ -1,0 +1,30 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "chat app using websockets",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdelalielbahloul/Chat-app.git"
+  },
+  "keywords": [
+    "chat-app",
+    "websockets",
+    "socket.io",
+    "nodejs"
+  ],
+  "author": "EL BAHLOUL Abdelali",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abdelalielbahloul/Chat-app/issues"
+  },
+  "homepage": "https://github.com/abdelalielbahloul/Chat-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
